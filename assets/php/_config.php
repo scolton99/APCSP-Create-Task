@@ -10,6 +10,6 @@ $cfg = [];
 $cfg["DB"]["Provider"] = "MySQL";
 $cfg["DB"]["Username"] = "scolton";
 $cfg["DB"]["Password"] = "\$fcrapr3qrfxgbc14";
-$cfg["DB"]["Database"] = "scolton";
+$cfg["DB"]["Database"] = "scolton_test";
 $cfg["DB"]["Host"]     = "10.212.9.60";
 $cfg["DB"]["Port"]     = 3306;

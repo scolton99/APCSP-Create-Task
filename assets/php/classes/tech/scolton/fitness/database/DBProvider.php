@@ -11,6 +11,7 @@ namespace tech\scolton\fitness\database;
 
 use tech\scolton\fitness\model\Team;
 use tech\scolton\fitness\model\User;
+use tech\scolton\fitness\notification\Notification;
 
 interface DBProvider
 {
@@ -21,4 +22,7 @@ interface DBProvider
     function GetTeam(int $id): array;
     function GetUser(int $id): array;
     function GetAllUsersOnTeam(int $id): array;
+    function SendNotification(Notification $notification);
+    function UpdateNotification(Notification $notification);
+    function GetNotification(int $id): Notification;
 }

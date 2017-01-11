@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.main {
+    background-color: #279fe5;
+    font-family: Quicksand, sans-serif;
+}
+
+.metro-button {
+    font-weight: 500;
+    border: 3px solid #fff;
+    border-radius: 0;
+    padding: 7px;
+    text-transform: lowercase;
+    font-family: inherit;
+    font-size: 24px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}

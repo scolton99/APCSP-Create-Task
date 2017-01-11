@@ -12,6 +12,11 @@ namespace tech\scolton\fitness\database;
 use tech\scolton\fitness\exception\MySQLException;
 use tech\scolton\fitness\model\Team;
 use tech\scolton\fitness\model\User;
+use tech\scolton\fitness\notification\Action;
+use tech\scolton\fitness\notification\ActionableNotification;
+use tech\scolton\fitness\notification\ActionTypes;
+use tech\scolton\fitness\notification\Notification;
+use tech\scolton\fitness\notification\NotificationTypes;
 use tech\scolton\fitness\util\Config;
 
 class MySQL implements DBProvider
@@ -115,6 +120,88 @@ class MySQL implements DBProvider
             return $users;
         } else {
             throw new MySQLException("No team existed with id $id or team has no members.");
+        }
+    }
+
+    /**
+     * @param Notification $notification
+     * @throws MySQLException
+     */
+    public function SendNotification(Notification $notification)
+    {
+        $content = $this->mysqli->escape_string($notification->getContent());
+        $target = $notification->getTarget();
+        $type = $this->mysqli->escape_string($notification->getType());
+
+        if ($notification instanceof ActionableNotification) {
+            $action = $notification->getAction()->getType();
+            $aTarget = $notification->getAction()->getTarget();
+            $runType = $notification->getRunType();
+            if (!$this->mysqli->query("INSERT INTO `fitness__notifications` (target, type, content, `action`, `action_target`, action_type) VALUES ($target, '$type', '$content', '$action', '$aTarget', '$runType')"))
+                throw new MySQLException("Failed to send new actionable notification. Error: ".$this->mysqli->error);
+        } else {
+            if (!$this->mysqli->query("INSERT INTO `fitness__notifications` (target, type, content) VALUES ($target, '$type', '$content')"))
+                throw new MySQLException("Failed to send new notification. Error: ".$this->mysqli->error);
+        }
+    }
+
+    /**
+     * @param Notification $notification
+     * @throws MySQLException
+     */
+    public function UpdateNotification(Notification $notification) {
+        $id = $notification->getId();
+        $read = $notification->isRead() ? 1 : 0;
+
+        if ($notification instanceof ActionableNotification) {
+            $executed = $notification->isExecuted() ? 1 : 0;
+
+            if (!$this->mysqli->query("UPDATE `fitness__notifications` SET (`read`=$read, `action_executed`=$executed) WHERE `id`=$id"))
+                throw new MySQLException("Failed to update actionable notification with id $id. Error: ".$this->mysqli->error);
+        } else {
+            if (!$this->mysqli->query("UPDATE `fitness__notifications` SET (`read`=$read) WHERE `id`=$id"))
+                throw new MySQLException("Failed to update notification with id $id. Error: ".$this->mysqli->error);
+        }
+    }
+
+    public function GetNotification(int $id): Notification {
+        $res = $this->mysqli->query("SELECT * FROM `fitness__notifications` WHERE `id`=$id");
+
+        if ($row = $res->fetch_assoc()) {
+            $read = $row["read"] == 1 ? true : false;
+            $target = $row["target"];
+            $type = $row["type"];
+            $content = $row["content"];
+            $actionStr = $row["action"];
+            $actionTarget = $row["action_target"];
+            $actionType = $row["action_type"];
+            $actionExecuted = $row["action_executed"] == 1 ? true : false;
+
+            if ($actionStr == "NONE") {
+                $class = NotificationTypes::MAP[$type];
+                $notification = new $class();
+                assert($notification instanceof Notification);
+                $notification->setup($id, $content, User::get($target), $read);
+
+                return $notification;
+            } else {
+                $class = NotificationTypes::MAP[$type];
+                $notification = new $class();
+                assert($notification instanceof Notification);
+                assert($notification instanceof ActionableNotification);
+
+                $aClass = ActionTypes::MAP[$actionStr];
+                $action = new $aClass();
+                assert($action instanceof Action);
+
+                $action->setup($actionTarget, $actionStr);
+                $notification->setup($id, $content, User::get($target), $read);
+                $notification->setupAction($action, $actionType, $actionExecuted);
+
+                return $notification;
+            }
+        } else {
+            throw new MySQLException("No team exists with id $id or an error was encountered while processing. (".$this->mysqli->error.")");
         }
     }
 }
