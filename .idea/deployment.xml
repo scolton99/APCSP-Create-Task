@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Davis Main">
+    <serverData>
+      <paths name="Davis Main">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/html/ap-1/APCSP-Explore" local="$PROJECT_DIR$" web="/APCSP-Explore" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

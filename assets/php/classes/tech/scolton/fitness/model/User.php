@@ -1,0 +1,199 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: scolton17
+ * Date: 1/10/17
+ * Time: 10:52 AM
+ */
+
+namespace tech\scolton\fitness\model;
+
+
+use tech\scolton\fitness\exception\RequiredValueMissingException;
+
+require_once("../../../../../var.php");
+
+class User
+{
+    public static $required_values = ["username", "password"];
+
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $username;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var int
+     */
+    private $weight;
+
+    /**
+     * @var int
+     */
+    private $height;
+
+    /**
+     * @var int
+     */
+    private $team_id;
+
+    private function __construct(array $values) {
+        $this->username = $values["username"];
+        $this->password = hash("SHA256", $values["password"]);
+
+        if (array_key_exists("weight", $values))
+            $this->weight = $values["weight"];
+
+        if (array_key_exists("height", $values))
+            $this->height = $values["height"];
+
+        if (array_key_exists("team", $values))
+            $this->team_id = $values["team"];
+    }
+
+    /**
+     * @param array $values
+     * @return User
+     * @throws RequiredValueMissingException
+     */
+    public static function g_new(array $values): User {
+        foreach (User::$required_values as $val)
+            if (!array_key_exists($val, $values))
+                throw new RequiredValueMissingException();
+
+        $user = new self($values);
+
+        $db = getDB();
+
+        $id = $db->NewUser($user);
+
+        $user->setId($id);
+
+        return $user;
+    }
+
+    /**
+     * @return void
+     */
+    private function _update() {
+        $db = getDB();
+        $db->WriteUserData($this);
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getUsername() {
+        return $this->username;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return int|mixed
+     */
+    public function getWeight() {
+        return $this->weight;
+    }
+
+    /**
+     * @return int|mixed
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * @return int|mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username)
+    {
+        $this->username = $username;
+        $this->_update();
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = hash("SHA256", $password);
+        $this->_update();
+    }
+
+    /**
+     * @param int $height
+     */
+    public function setHeight(int $height)
+    {
+        $this->height = $height;
+        $this->_update();
+    }
+
+    /**
+     * @param int $weight
+     */
+    public function setWeight(int $weight)
+    {
+        $this->weight = $weight;
+        $this->_update();
+    }
+
+    /**
+     * @param int $team_id
+     */
+    public function setTeam(int $team_id) {
+        $this->team_id = $team_id;
+        $this->_update();
+    }
+
+    /**
+     * @return int
+     */
+    public function getTeamId(): int
+    {
+        return $this->team_id;
+    }
+
+    public function getTeam() {
+        return Team::get($this->team_id);
+    }
+
+    public static function get($id): User {
+        $db = getDB();
+        $data = $db->GetUser($id);
+        return User::g_new($data);
+    }
+
+    /**
+     * @param $id int
+     */
+    private function setId($id) {
+        $this->id = $id;
+    }
+}
