@@ -25,4 +25,6 @@ interface DBProvider
     function SendNotification(Notification $notification);
     function UpdateNotification(Notification $notification);
     function GetNotification(int $id): Notification;
+
+    function Login(string $username, string $password): int;
 }

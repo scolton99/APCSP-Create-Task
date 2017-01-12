@@ -204,4 +204,13 @@ class MySQL implements DBProvider
             throw new MySQLException("No team exists with id $id or an error was encountered while processing. (".$this->mysqli->error.")");
         }
     }
+
+    public function Login(string $username, string $password): int {
+        $res = $this->mysqli->query("SELECT * FROM `fitness__users` WHERE `username`='$username' AND `password`='$password'");
+        if ($row = $res->fetch_assoc()) {
+            return $row["id"];
+        } else {
+            return -1;
+        }
+    }
 }

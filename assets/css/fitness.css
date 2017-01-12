@@ -18,7 +18,226 @@ body.main {
     font-size: 24px;
     color: #fff;
     background-color: rgba(0, 0, 0, 0);
+}
+
+#logout-button, #login-button {
     position: fixed;
     top: 20px;
     right: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+section.main {
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+section#form {
+    vertical-align: top;
+}
+
+@keyframes logo-fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+#register-logo {
+    display: inline-block;
+    height: 50vh;
+    animation: logo-fade 1s;
+}
+
+@keyframes reg-form-expand {
+    0% {
+        padding-left: 0;
+        padding-right: 0;
+        width: 0;
+    }
+
+    50%{
+        padding-left: 0;
+        padding-right: 0;
+        width: 0;
+    }
+
+    50.1% {
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 0;
+    }
+
+    100% {
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 65vw;
+    }
+}
+
+div#logo-container {
+    display:inline-block;
+    height: 50vh;
+}
+
+div#form-container {
+    display: inline-block;
+    height: 50vh;
+    animation: reg-form-expand 2s cubic-bezier(0, 0, 0, 1);
+    width: 65vw;
+    max-width: 800px;
+    overflow: hidden;
+    text-align: justify;
+    padding-left: 30px;
+    padding-right: 30px;
+    /* border: 1px solid #000; */
+}
+
+#registration-form {
+    width: 65vw;
+    max-width: 800px;
+    text-align: left;
+}
+
+#registration-form h1 {
+    text-transform: lowercase;
+    font-weight: 800;
+    color: #fff;
+    font-size: 6em;
+    margin-top: 1em;
+    margin-bottom: 0.4em;
+}
+
+input[type="text"] {
+    width: calc(100% - 40px);
+    padding: 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 2em;
+    font-family: Quicksand, sans-serif;
+    outline: none;
+}
+
+.form-part ~ .form-part {
+    display: none;
+}
+
+input[type="radio"] {
+    opacity: 0;
+    margin: 0;
+    margin-left: 40px;
+    width: 2em;
+}
+
+input[type="radio"] + label {
+    display: inline-block;
+    margin-left: -2em;
+    line-height: 1.5em;
+    font-size: 2em;
+    color: #fff;
+}
+
+input[type="radio"] + label > span {
+    display: inline-block;
+    height: 0.875em;
+    width: 0.875em;
+    margin: 0.25em 0.5em 0.25em 0.25em;
+    border: 0.15em solid #fff;
+    border-radius: 1000px;
+    vertical-align: bottom;
+}
+
+input[type="radio"]:checked + label > span {
+    background: radial-gradient(circle, #fff 0, #fff 45%, rgba(0, 0, 0, 0) 45%);
+}
+
+#form-2 h1 {
+    margin-top: 0.4em;
+}
+
+.input-group {
+    display: inline-block;
+}
+
+#form-2 input[type="text"] {
+    text-align: right;
+}
+
+.input-group input[type="text"] {
+    width: 1.5em;
+    padding-right: 5px;
+    margin-right: 0;
+    display: inline-block;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group span {
+    font-size: 2em;
+    font-weight: 500;
+    padding: 20px 20px 20px 5px;
+    background-color: #fff;
+    margin-left: -5px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #A9A9A9;
+}
+
+#form-2 div#feetcont span {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+div#inchescont {
+    margin-left: -5px;
+    margin-right: 40px;
+}
+
+div#inchescont input[type="text"] {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 3px;
+}
+
+#customarybox, #metricbox {
+    transition: opacity 0.5s;
+}
+
+#metricbox {
+    display: none;
+}
+
+#cmcont {
+    margin-right: 40px;
+}
+
+#form-3 h1 {
+    margin-top: 0.4em;
+}
+
+#form-3 select {
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    font-size: 2em;
+    font-family: Quicksand, sans-serif;
+}
+
+#birthday-next {
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px solid #fff;
+    border-radius: 50px;
+    font-size: 2em;
+    font-weight: 800;
+    color: #fff;
+    padding: 20px 30px 20px 30px;
 }

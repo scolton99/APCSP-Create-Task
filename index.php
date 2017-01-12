@@ -22,6 +22,6 @@ $user = \tech\scolton\fitness\model\User::get($_SESSION["id"]);
         <script src="assets/js/fitness.js"></script>
     </head>
     <body class="main">
-        <button class="metro-button">Log out</button>
+        <a class="metro-button" id="logout-button" href="javascript:void(0);">Log out</a>
     </body>
 </html>

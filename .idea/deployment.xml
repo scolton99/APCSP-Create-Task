@@ -5,7 +5,7 @@
       <paths name="Davis Main">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/www/html/ap-1/APCSP-Explore" local="$PROJECT_DIR$" web="/APCSP-Explore" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
