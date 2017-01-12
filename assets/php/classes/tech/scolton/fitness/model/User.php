@@ -47,6 +47,21 @@ class User
      */
     private $team_id;
 
+    /**
+     * @var \DateTime
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     */
+    private $units;
+
+    /**
+     * @var string
+     */
+    private $name;
+
     private function __construct(array $values) {
         $this->username = $values["username"];
         $this->password = hash("SHA256", $values["password"]);
@@ -59,6 +74,15 @@ class User
 
         if (array_key_exists("team", $values))
             $this->team_id = $values["team"];
+
+        if (array_key_exists("birthday", $values))
+            $this->birthday = $values["birthday"];
+
+        if (array_key_exists("units", $values))
+            $this->units = $values["units"];
+
+        if (array_key_exists("name", $values))
+            $this->name = $values["name"];
     }
 
     /**
@@ -195,5 +219,56 @@ class User
      */
     private function setId($id) {
         $this->id = $id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthday(): \DateTime
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnits(): string
+    {
+        return $this->units;
+    }
+
+    /**
+     * @param \DateTime $birthday
+     */
+    public function setBirthday(\DateTime $birthday)
+    {
+        $this->birthday = $birthday;
+        $this->_update();
+    }
+
+    /**
+     * @param string $units
+     */
+    public function setUnits(string $units)
+    {
+        $this->units = $units;
+        $this->_update();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+        $this->_update();
     }
 }

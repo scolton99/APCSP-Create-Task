@@ -10,6 +10,9 @@ require_once("../../var.php");
 $db = getDB();
 $id = $db->Login($_POST["username"], $_POST["password"]);
 
+$_SESSION["id"] = $id;
+
+// TODO: Replace this with a try-catch block
 if ($id <= 0) {
     echo json_encode(array("result" => "failure", "message" => "Invalid username or password."));
 } else {

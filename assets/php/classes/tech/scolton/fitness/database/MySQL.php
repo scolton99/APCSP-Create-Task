@@ -54,20 +54,28 @@ class MySQL implements DBProvider
         $height = $user->getHeight();
         $weight = $user->getWeight();
         $team = $user->getTeamId();
+        $birthday = $user->getBirthday();
+        $units = $user->getUnits();
+        $name = $user->getName();
 
-        if (!$this->mysqli->query("UPDATE `fitness__users` SET (`username`='$username', `password`='$password', `weight`=$weight, `height`=$height, `team`=$team) WHERE `id`=$id")) {
+        if (!$this->mysqli->query("UPDATE `fitness__users` SET (`username`='$username', `password`='$password', `weight`=$weight, `height`=$height, `team`=$team, `birthday`='$birthday', `units`='$units',`name`='$name') WHERE `id`=$id")) {
             throw new MySQLException("Failed to write new user data.");
         }
     }
 
     public function NewUser(User $user): int {
+        // TODO: make this function throw a MySQLException instead of returning -1
+
         $username = $user->getUsername();
         $password = $user->getPassword();
         $weight = $user->getWeight();
         $height = $user->getHeight();
         $team = $user->getTeamId();
+        $birthday = $user->getBirthday();
+        $units = $user->getUnits();
+        $name = $user->getName();
 
-        if ($this->mysqli->query("INSERT INTO fitness__users (`username`,`password`,`weight`,`height`,`team`) VALUES ('$username', '$password', $weight, $height, $team)")) {
+        if ($this->mysqli->query("INSERT INTO fitness__users (`username`,`password`,`weight`,`height`,`team`,`birthday`,`units`,`name`) VALUES ('$username', '$password', $weight, $height, $team, '$birthday','$units','$name')")) {
             $id = $this->mysqli->insert_id;
 
             return $id;

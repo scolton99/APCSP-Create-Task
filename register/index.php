@@ -97,6 +97,17 @@ if (userLoggedIn())
                             </select>
                             <a id="birthday-next" href="javascript:next();">&#8595;</a>
                         </div>
+                        <div id="form-4" class="form-part">
+                            <h1>Login info</h1>
+                            <input type="text" id="username" placeholder="username" onkeyup="if(event.keyCode == 13) next(); " autocomplete="off">
+                            <br />
+                            <br />
+                            <input type="password" id="password" placeholder="password" onkeyup="if(event.keyCode == 13) next(); " autocomplete="off">
+                        </div>
+                        <div id="form-5" class="form-part">
+                            <h1 id="action_header">Creating your account...</h1>
+                            <span class="error" id="action_error"></span>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -112,17 +112,17 @@ div#form-container {
     text-transform: lowercase;
     font-weight: 800;
     color: #fff;
-    font-size: 6em;
+    font-size: 12vmin;
     margin-top: 1em;
     margin-bottom: 0.4em;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"]{
     width: calc(100% - 40px);
     padding: 20px;
     border: none;
     border-radius: 30px;
-    font-size: 2em;
+    font-size: 4vmin;
     font-family: Quicksand, sans-serif;
     outline: none;
 }
@@ -182,7 +182,7 @@ input[type="radio"]:checked + label > span {
 }
 
 .input-group span {
-    font-size: 2em;
+    font-size: 4vmin;
     font-weight: 500;
     padding: 20px 20px 20px 5px;
     background-color: #fff;
@@ -240,4 +240,13 @@ div#inchescont input[type="text"] {
     font-weight: 800;
     color: #fff;
     padding: 20px 30px 20px 30px;
+}
+
+#form-4 h1 {
+    margin-top: -0.1em;
+}
+
+#form-4 input {
+    width: calc(65vw - 40px);
+    max-width: 760px;
 }
