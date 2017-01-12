@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Local" createEmptyFolders="true" showEqualInSync="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Davis Main" createEmptyFolders="true" showEqualInSync="true">
     <serverData>
       <paths name="Davis Main">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/APCSP-Explore" local="$PROJECT_DIR$" web="/APCSP-Explore" />
           </mappings>
         </serverdata>
       </paths>

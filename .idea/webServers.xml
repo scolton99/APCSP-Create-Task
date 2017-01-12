@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="fd55a766-6f68-41d3-b4f5-d005437031c1" name="Davis Main" url="http://10.212.8.60/ap-1/">
-        <fileTransfer host="10.212.8.60" port="22" accessType="SFTP">
+        <fileTransfer host="10.212.8.60" port="22" rootFolder="/var/www/html/ap-1" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

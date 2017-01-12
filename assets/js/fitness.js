@@ -4,6 +4,9 @@
 var cur = 1;
 
 function next() {
+    if (cur >= 5)
+        return;
+
     var nxt = cur + 1;
 
     var c = document.getElementById("form-" + cur);
