@@ -8,6 +8,10 @@
 
 namespace tech\scolton\fitness\notification;
 
+define("TOP", dirname(__FILE__, 6) . "/");
+
+require_once(TOP. "var.php");
+
 use tech\scolton\fitness\model\User;
 
 /**
@@ -19,17 +23,81 @@ use tech\scolton\fitness\model\User;
  *
  * @package tech\scolton\fitness\notification
  */
-interface Notification
+class Notification
 {
-    public function setup(int $id, string $content, User $target, bool $read);
+    /**
+     * @var string
+     */
+    private $content;
 
-    public function getContent(): string;
-    public function send();
-    public function getTarget(): User;
-    public function getType(): string;
-    public function getId(): int;
-    public static function fromDatabase(int $id): Notification;
-    public function isRead(): bool;
-    public function update();
-    public function isExecuted(): bool;
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var User
+     */
+    private $target;
+
+    /**
+     * @var bool
+     */
+    private $read;
+
+    /**
+     * @var NotificationType
+     */
+    private $type;
+
+    public function __construct(int $id, string $content, User $target, bool $read, NotificationType $type)
+    {
+        $this->id = $id;
+        $this->content = $content;
+        $this->target = $target;
+        $this->read = $read;
+        $this->type = $type;
+    }
+
+    public function _update()
+    {
+        $db = getDB();
+        $db->UpdateNotification($this);
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function getId(): int {
+        return $this->id;
+    }
+
+    public function getTarget(): User {
+        return $this->target;
+    }
+
+    public function isRead(): bool {
+        return $this->read;
+    }
+
+    public function setRead(boolean $read) {
+        $this->read = $read;
+        $this->_update();
+    }
+
+    public  function getType(): NotificationType {
+        return $this->type;
+    }
+
+    public function send() {
+        $db = getDB();
+
+        $this->id = $db->SendNotification($this);
+    }
+
+    public static function fromDatabase(int $id): Notification {
+        return getDB()->GetNotification($id);
+    }
 }

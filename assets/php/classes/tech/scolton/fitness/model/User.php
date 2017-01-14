@@ -11,7 +11,9 @@ namespace tech\scolton\fitness\model;
 
 use tech\scolton\fitness\exception\RequiredValueMissingException;
 
-require_once("../../../../../var.php");
+define("TOP", dirname(__FILE__, 6) . "/");
+
+require_once(TOP. "var.php");
 
 class User
 {
@@ -64,7 +66,7 @@ class User
 
     private function __construct(array $values) {
         $this->username = $values["username"];
-        $this->password = hash("SHA256", $values["password"]);
+        $this->password = $values["password"];
 
         if (array_key_exists("weight", $values))
             $this->weight = $values["weight"];
@@ -95,7 +97,7 @@ class User
             if (!array_key_exists($val, $values))
                 throw new RequiredValueMissingException();
 
-        $user = new self($values);
+        $user = new User($values);
 
         $db = getDB();
 

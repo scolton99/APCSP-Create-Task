@@ -118,7 +118,7 @@ function register() {
     var height, weight;
 
     if (units == "CUSTOMARY") {
-        var inches = 12.0 * parseFloat(document.getElementById("ft").value) + parseFloat(document.getElementById("in"));
+        var inches = 12.0 * parseFloat(document.getElementById("ft").value) + parseFloat(document.getElementById("in").value);
         height = inches * 2.4;
 
         weight = parseFloat(document.getElementById("lbs").value) * 0.453592;
@@ -130,6 +130,8 @@ function register() {
     var birthday = "" + document.getElementById("y").value + "-" + document.getElementById("m").value + "-" + document.getElementById("d").value;
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
+
+    console.log(password);
 
     var data = new FormData();
     data.append("name", name);
@@ -144,18 +146,42 @@ function register() {
     x.open("POST", "../assets/php/scripts/ajax/user_create.php", true);
     x.onreadystatechange = function() {
         if (x.status == 200 && x.readyState == 4) {
+            console.log(x.responseText);
             var result = JSON.parse(x.responseText);
             if (result.result == "success") {
                 window.location = "../";
             } else {
-                document.getElementById("action_error").innerHTML = result.message;
+                document.getElementById("action_header").innerHTML = "Something went wrong...";
+                document.getElementById("action_error").innerHTML = result.message + "<br />Try refreshing the page.";
                 document.body.style.transition = "background-color 0.5s";
                 window.setTimeout(function() {
-                    document.body.style.backgroundColor = "#f00";
+                    document.body.style.backgroundColor = "rgb(255, 79, 79)";
                 }, 100);
             }
         }
     };
     x.send(data);
+}
 
+function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    var data = new FormData();
+    data.append("username", username);
+    data.append("password", password);
+
+    var x = new XMLHttpRequest();
+    x.open("POST", "../assets/php/scripts/ajax/user_login.php", true);
+    x.onreadystatechange = function () {
+        if (x.readyState == 4 && x.status == 200) {
+            var res = JSON.parse(x.responseText);
+            if (res.result == "success") {
+                window.location = "../";
+            } else {
+
+            }
+        }
+    };
+    x.send(data);
 }

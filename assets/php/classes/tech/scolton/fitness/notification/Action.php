@@ -11,8 +11,10 @@ namespace tech\scolton\fitness\notification;
 
 interface Action
 {
+    public function __construct(string $target, ActionType $type, Notification $source, array $actionMeta);
     public function execute();
-    public function getType(): string;
     public function getTarget(): string;
-    public function setup(string $target, string $type);
+    public function getType(): ActionType;
+    public function getSource(): Notification;
+    public function getActionMeta(): array;
 }

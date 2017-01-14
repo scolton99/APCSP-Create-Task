@@ -36,9 +36,6 @@ section.main {
     transform: translate(0, -50%);
     width: 100%;
     text-align: center;
-}
-
-section#form {
     vertical-align: top;
 }
 
@@ -56,6 +53,11 @@ section#form {
     display: inline-block;
     height: 50vh;
     animation: logo-fade 1s;
+}
+
+div#logo-container {
+    display:inline-block;
+    height: 50vh;
 }
 
 @keyframes reg-form-expand {
@@ -84,11 +86,6 @@ section#form {
     }
 }
 
-div#logo-container {
-    display:inline-block;
-    height: 50vh;
-}
-
 div#form-container {
     display: inline-block;
     height: 50vh;
@@ -99,7 +96,6 @@ div#form-container {
     text-align: justify;
     padding-left: 30px;
     padding-right: 30px;
-    /* border: 1px solid #000; */
 }
 
 #registration-form {
@@ -108,11 +104,11 @@ div#form-container {
     text-align: left;
 }
 
-#registration-form h1 {
+h1 {
     text-transform: lowercase;
     font-weight: 800;
     color: #fff;
-    font-size: 12vmin;
+    font-size: 10vmin;
     margin-top: 1em;
     margin-bottom: 0.4em;
 }
@@ -127,15 +123,15 @@ input[type="text"], input[type="password"]{
     outline: none;
 }
 
-.form-part ~ .form-part {
-    display: none;
-}
-
 input[type="radio"] {
     opacity: 0;
-    margin: 0;
-    margin-left: 40px;
+    margin: 0 40px 0 0;
     width: 2em;
+}
+
+/*noinspection CssUnusedSymbol*/
+.form-part ~ .form-part {
+    display: none;
 }
 
 input[type="radio"] + label {
@@ -160,7 +156,7 @@ input[type="radio"]:checked + label > span {
     background: radial-gradient(circle, #fff 0, #fff 45%, rgba(0, 0, 0, 0) 45%);
 }
 
-#form-2 h1 {
+#form-2 h1, #form-3 h1 {
     margin-top: 0.4em;
 }
 
@@ -192,7 +188,7 @@ input[type="radio"]:checked + label > span {
     color: #A9A9A9;
 }
 
-#form-2 div#feetcont span {
+#form-2 div#feetcont > span {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -202,17 +198,14 @@ div#inchescont {
     margin-right: 40px;
 }
 
-div#inchescont input[type="text"] {
+div#inchescont > input[type="text"] {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     padding-left: 3px;
 }
 
-#customarybox, #metricbox {
-    transition: opacity 0.5s;
-}
-
-#metricbox {
+/*noinspection CssUnusedSymbol*/
+#metricbox, #customarybox {
     display: none;
 }
 
@@ -220,11 +213,7 @@ div#inchescont input[type="text"] {
     margin-right: 40px;
 }
 
-#form-3 h1 {
-    margin-top: 0.4em;
-}
-
-#form-3 select {
+#form-3 > select {
     border: none;
     border-radius: 30px;
     padding: 20px;
@@ -242,11 +231,23 @@ div#inchescont input[type="text"] {
     padding: 20px 30px 20px 30px;
 }
 
-#form-4 h1 {
+#form-4 > h1 {
     margin-top: -0.1em;
 }
 
-#form-4 input {
+#form-4 > input {
     width: calc(65vw - 40px);
     max-width: 760px;
+}
+
+#registration-form #action_header {
+    font-size: 8vmin;
+}
+
+#registration-form #action_error {
+    color: #fff;
+}
+
+#login-form {
+
 }

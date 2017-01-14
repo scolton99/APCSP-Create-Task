@@ -20,17 +20,20 @@ if (userLoggedIn())
         <script src="../assets/js/fitness.js"></script>
     </head>
     <body class="main">
-        <a class="metro-button" id="login-button" href="javascript:void(0);">Log in</a>
+        <a class="metro-button" id="login-button" href="../login">Log in</a>
+        <div id="login-form">
+
+        </div>
         <section id="form" class="main">
             <div id="logo-container">
                 <img src="../assets/img/main_logo.svg" alt="Fitness Logo" class="logo" id="register-logo" />
             </div>
             <div id="form-container">
                 <div id="registration-form">
-                    <form onsubmit="javascript:void(0);">
+                    <form onsubmit="void(0);">
                         <div id="form-1" class="form-part">
                             <h1>Hello</h1>
-                            <input placeholder="your name" id="name" type="text" autocomplete="off" autofocus onkeyup="if(event.keyCode == 13) next(); ">
+                            <input placeholder="your name" id="name" type="text" autocomplete="off" autofocus onkeyup="if(event.keyCode == 13) next();">
                         </div>
                         <div id="form-2" class="form-part">
                             <h1>Height and Weight</h1>
@@ -42,39 +45,39 @@ if (userLoggedIn())
                             <br />
                             <div id="customarybox">
                                 <div class="input-group" id="feetcont">
-                                    <input type="text" autocomplete="off" id="ft" onkeyup="if(event.keyCode == 13) next(); ">
+                                    <input title="Height (feet)" type="text" autocomplete="off" id="ft" onkeyup="if(event.keyCode == 13) next();">
                                     <span>ft.</span>
                                 </div>
                                 <div class="input-group" id="inchescont">
-                                    <input type="text" autocomplete="off" id="in" onkeyup="if(event.keyCode == 13) next(); ">
+                                    <input title="Height (inches)" type="text" autocomplete="off" id="in" onkeyup="if(event.keyCode == 13) next();">
                                     <span>in.</span>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" autocomplete="off"  id="lbs" onkeyup="if(event.keyCode == 13) next(); ">
+                                    <input title="Weight (pounds)" type="text" autocomplete="off"  id="lbs" onkeyup="if(event.keyCode == 13) next();">
                                     <span>lbs.</span>
                                 </div>
                             </div>
                             <div id="metricbox">
                                 <div class="input-group" id="cmcont">
-                                    <input type="text" autocomplete="off" id="cm" onkeyup="if(event.keyCode == 13) next(); ">
+                                    <input title="Height (centimeters)" type="text" autocomplete="off" id="cm" onkeyup="if(event.keyCode == 13) next();">
                                     <span>cm.</span>
                                 </div>
-                                <div class="input-group"id="kgcont">
-                                    <input type="text" autocomplete="off" id="kg" onkeyup="if(event.keyCode == 13) next(); ">
+                                <div class="input-group" id="kgcont">
+                                    <input title="Weight (kilograms)" type="text" autocomplete="off" id="kg" onkeyup="if(event.keyCode == 13) next();">
                                     <span>kg.</span>
                                 </div>
                             </div>
                         </div>
                         <div id="form-3" class="form-part">
                             <h1>Date of Birth</h1>
-                            <select id="d">
+                            <select title="Date of Birth (Day)" id="d">
                                 <?php
                                 for ($i = 1; $i <= 31; $i++) {
                                     echo "<option value='$i'>$i</option>";
                                 }
                                 ?>
                             </select>
-                            <select id="m">
+                            <select title="Date of Birth (Month)" id="m">
                                 <option value="1">January</option>
                                 <option value="2">February</option>
                                 <option value="3">March</option>
@@ -88,7 +91,7 @@ if (userLoggedIn())
                                 <option value="11">November</option>
                                 <option value="12">December</option>
                             </select>
-                            <select id="y">
+                            <select title="Date of Birth (Year)" id="y">
                                 <?php
                                 for ($i = 1900; $i <= date("Y"); $i++) {
                                     echo "<option value='$i'>$i</option>'";
@@ -99,10 +102,10 @@ if (userLoggedIn())
                         </div>
                         <div id="form-4" class="form-part">
                             <h1>Login info</h1>
-                            <input type="text" id="username" placeholder="username" onkeyup="if(event.keyCode == 13) next(); " autocomplete="off">
+                            <input type="text" id="username" placeholder="username" onkeyup="if(event.keyCode == 13) next();" autocomplete="off">
                             <br />
                             <br />
-                            <input type="password" id="password" placeholder="password" onkeyup="if(event.keyCode == 13) next(); " autocomplete="off">
+                            <input type="password" id="password" placeholder="password" onkeyup="if(event.keyCode == 13) next();" autocomplete="off">
                         </div>
                         <div id="form-5" class="form-part">
                             <h1 id="action_header">Creating your account...</h1>

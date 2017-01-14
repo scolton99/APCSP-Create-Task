@@ -6,13 +6,16 @@
  * Time: 10:53 AM
  */
 
+/**
+ * @param $class
+ */
 function __fitness_spl_autoload($class) {
     $cName = str_replace("\\", DIRECTORY_SEPARATOR, $class);
 
-    if (@require_once(ROOT . DIR . "assets/php/classes/" . $cName . ".php") || @require_once(ROOT . DIR . "assets/php/classes/" . $cName . ".class.php"))
+    if (@require_once(TOPDIR . "assets/php/classes/" . $cName . ".php"))
         return;
 
-    $i = new RecursiveDirectoryIterator(ROOT . DIR . "assets/php/classes/", RecursiveDirectoryIterator::SKIP_DOTS);
+    $i = new RecursiveDirectoryIterator(TOPDIR . "assets/php/classes/", RecursiveDirectoryIterator::SKIP_DOTS);
     $j = new RecursiveIteratorIterator($i, RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($j as $item) {

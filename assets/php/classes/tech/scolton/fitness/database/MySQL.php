@@ -8,15 +8,18 @@
 
 namespace tech\scolton\fitness\database;
 
+define("DIRNAME", dirname(__FILE__ , 8) . "/");
 
 use tech\scolton\fitness\exception\MySQLException;
+use tech\scolton\fitness\exception\UserLoginException;
+use tech\scolton\fitness\model\Message;
 use tech\scolton\fitness\model\Team;
 use tech\scolton\fitness\model\User;
 use tech\scolton\fitness\notification\Action;
-use tech\scolton\fitness\notification\ActionableNotification;
-use tech\scolton\fitness\notification\ActionTypes;
+use tech\scolton\fitness\notification\NotificationActionable;
+use tech\scolton\fitness\notification\ActionType;
 use tech\scolton\fitness\notification\Notification;
-use tech\scolton\fitness\notification\NotificationTypes;
+use tech\scolton\fitness\notification\NotificationType;
 use tech\scolton\fitness\util\Config;
 
 class MySQL implements DBProvider
@@ -24,14 +27,14 @@ class MySQL implements DBProvider
     private $mysqli;
 
     public function __construct() {
-        require_once("../../../../../var.php");
-        $cfg = Config::getConfigSection("DB");
+        require_once(DIRNAME . "assets/php/var.php");
+        $cfg = Config::getConfigSection("db");
 
-        $username = $cfg["Username"];
-        $password = $cfg["Password"];
-        $database = $cfg["Database"];
-        $host = $cfg["Host"];
-        $port = $cfg["Port"];
+        $username = $cfg["username"];
+        $password = $cfg["password"];
+        $database = $cfg["database"];
+        $host = $cfg["host"];
+        $port = $cfg["port"];
 
         $this->mysqli = new \mysqli($host, $username, $password, $database, $port);
     }
@@ -64,23 +67,23 @@ class MySQL implements DBProvider
     }
 
     public function NewUser(User $user): int {
-        // TODO: make this function throw a MySQLException instead of returning -1
-
         $username = $user->getUsername();
         $password = $user->getPassword();
         $weight = $user->getWeight();
         $height = $user->getHeight();
         $team = $user->getTeamId();
-        $birthday = $user->getBirthday();
+        $birthday = $user->getBirthday()->format("Y-m-d");
         $units = $user->getUnits();
         $name = $user->getName();
 
-        if ($this->mysqli->query("INSERT INTO fitness__users (`username`,`password`,`weight`,`height`,`team`,`birthday`,`units`,`name`) VALUES ('$username', '$password', $weight, $height, $team, '$birthday','$units','$name')")) {
+        $query = "INSERT INTO fitness__users (`username`,`password`,`weight`,`height`,`team`,`birthday`,`units`,`name`) VALUES ('$username', '$password', $weight, $height, $team, '$birthday','$units','$name')";
+
+        if ($this->mysqli->query($query)) {
             $id = $this->mysqli->insert_id;
 
             return $id;
         } else {
-            return -1;
+            throw new MySQLException("Couldn't insert user into database. Error: " . $this->mysqli->error . " in query " . $query);
         }
     }
 
@@ -133,23 +136,28 @@ class MySQL implements DBProvider
 
     /**
      * @param Notification $notification
+     * @return int
      * @throws MySQLException
      */
-    public function SendNotification(Notification $notification)
+    public function SendNotification(Notification $notification): int
     {
         $content = $this->mysqli->escape_string($notification->getContent());
         $target = $notification->getTarget();
-        $type = $this->mysqli->escape_string($notification->getType());
+        $type = $notification->getType()->getId();
 
-        if ($notification instanceof ActionableNotification) {
-            $action = $notification->getAction()->getType();
+        if ($notification instanceof NotificationActionable) {
+            $action = $notification->getAction()->getType()->getId();
             $aTarget = $notification->getAction()->getTarget();
             $runType = $notification->getRunType();
-            if (!$this->mysqli->query("INSERT INTO `fitness__notifications` (target, type, content, `action`, `action_target`, action_type) VALUES ($target, '$type', '$content', '$action', '$aTarget', '$runType')"))
+            if (!$this->mysqli->query("INSERT INTO `fitness__notifications` (`target`, `type`, `content`, `action_type`, `action_target`, `action_run_type`) VALUES ($target, $type, '$content', $action, '$aTarget', '$runType')"))
                 throw new MySQLException("Failed to send new actionable notification. Error: ".$this->mysqli->error);
+            else
+                return $this->mysqli->insert_id;
         } else {
-            if (!$this->mysqli->query("INSERT INTO `fitness__notifications` (target, type, content) VALUES ($target, '$type', '$content')"))
+            if (!$this->mysqli->query("INSERT INTO `fitness__notifications` (target, type, content) VALUES ($target, $type, '$content')"))
                 throw new MySQLException("Failed to send new notification. Error: ".$this->mysqli->error);
+            else
+                return $this->mysqli->insert_id;
         }
     }
 
@@ -161,7 +169,7 @@ class MySQL implements DBProvider
         $id = $notification->getId();
         $read = $notification->isRead() ? 1 : 0;
 
-        if ($notification instanceof ActionableNotification) {
+        if ($notification instanceof NotificationActionable) {
             $executed = $notification->isExecuted() ? 1 : 0;
 
             if (!$this->mysqli->query("UPDATE `fitness__notifications` SET (`read`=$read, `action_executed`=$executed) WHERE `id`=$id"))
@@ -176,49 +184,100 @@ class MySQL implements DBProvider
         $res = $this->mysqli->query("SELECT * FROM `fitness__notifications` WHERE `id`=$id");
 
         if ($row = $res->fetch_assoc()) {
+            $target = User::get($row["target"]);
+            $type = NotificationType::getType($row["type"]);
             $read = $row["read"] == 1 ? true : false;
-            $target = $row["target"];
-            $type = $row["type"];
             $content = $row["content"];
-            $actionStr = $row["action"];
+            $actionType = ActionType::getType($row["action_type"]);
             $actionTarget = $row["action_target"];
-            $actionType = $row["action_type"];
+            $actionRunType = $row["action_run_type"];
             $actionExecuted = $row["action_executed"] == 1 ? true : false;
 
-            if ($actionStr == "NONE") {
-                $class = NotificationTypes::MAP[$type];
-                $notification = new $class();
-                assert($notification instanceof Notification);
-                $notification->setup($id, $content, User::get($target), $read);
+            $notification = new Notification($id, $content, $target, $read, $type);
 
-                return $notification;
-            } else {
-                $class = NotificationTypes::MAP[$type];
-                $notification = new $class();
-                assert($notification instanceof Notification);
-                assert($notification instanceof ActionableNotification);
+            if ($type->isActionable()) {
+                assert($notification instanceof NotificationActionable);
 
-                $aClass = ActionTypes::MAP[$actionStr];
-                $action = new $aClass();
+                $aClass = $actionType->getClassmap();
+                $action = new $aClass($actionTarget, $actionType);
                 assert($action instanceof Action);
 
-                $action->setup($actionTarget, $actionStr);
-                $notification->setup($id, $content, User::get($target), $read);
-                $notification->setupAction($action, $actionType, $actionExecuted);
-
-                return $notification;
+                $notification->setupAction($action, $actionRunType, $actionExecuted);
             }
+
+            return $notification;
         } else {
             throw new MySQLException("No team exists with id $id or an error was encountered while processing. (".$this->mysqli->error.")");
         }
     }
 
+    public function SetNotificationsRead(int $userId) {
+        // TODO: Implement the SetNotificationsRead function
+    }
+
     public function Login(string $username, string $password): int {
-        $res = $this->mysqli->query("SELECT * FROM `fitness__users` WHERE `username`='$username' AND `password`='$password'");
+        $res = $this->mysqli->query("SELECT * FROM `fitness__users` WHERE `username`='$username'");
         if ($row = $res->fetch_assoc()) {
-            return $row["id"];
+            if ($row["password"] == $password) {
+                return $row["id"];
+            } else {
+                throw new UserLoginException("Failed to log in user.", 0, null, UserLoginException::INCORRECT_PASSWORD);
+            }
         } else {
-            return -1;
+            throw new UserLoginException("Failed to log in user.", 0, null, UserLoginException::USER_NOT_FOUND);
         }
+    }
+
+    public function GetActionTypes(): array {
+        $res = $this->mysqli->query("SELECT * FROM `fitness__action_types`");
+
+        $returnArr = [];
+        if ($row = $res->fetch_assoc()) {
+            do {
+                $returnArr[] = $row;
+            } while ($row = $res->fetch_assoc());
+
+            return $returnArr;
+        } else {
+            if ($this->mysqli->errno) {
+                throw new MySQLException($this->mysqli->error);
+            } else {
+                throw new MySQLException("No action types have been defined in the database.");
+            }
+        }
+    }
+
+    public function GetNotificationTypes(): array {
+        $res = $this->mysqli->query("SELECT * FROM `fitness__notification_types`");
+
+        $returnArr = [];
+        if ($row = $res->fetch_assoc()) {
+            do {
+                $returnArr[] = $row;
+            } while ($row = $res->fetch_assoc());
+
+            return $returnArr;
+        } else {
+            if ($this->mysqli->errno) {
+                throw new MySQLException($this->mysqli->error);
+            } else {
+                throw new MySQLException("No notification types have been defined in the database.");
+            }
+        }
+    }
+
+    public function SendMessage(Message $message): int {
+        // TODO: Implement the SendMessage function
+        return null;
+    }
+
+    public function GetMessages(int $team, int $offset = 0, int $limit = 50): array {
+        // TODO: Implement the GetMessagesFunction
+        return null;
+    }
+
+    public function GetMessage(int $id): Message {
+        // TODO: Implement the GetMessagesFunction
+        return null;
     }
 }

@@ -1,0 +1,10 @@
+{
+    "db": {
+        "provider": "MySQL",
+        "username": "scolton",
+        "password": "$fcrapr3qrfxgbc14",
+        "database": "scolton_test",
+        "host": "10.212.8.60",
+        "port": 3306
+    }
+}

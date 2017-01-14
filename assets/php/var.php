@@ -5,22 +5,20 @@
  * Date: 1/10/17
  * Time: 10:56 AM
  */
+define("TOPDIR", dirname(__FILE__, 3) . "/");
+
 if (session_status() != PHP_SESSION_ACTIVE)
     session_start();
-
-define("DIR", "/");
-define("ROOT", $_SERVER["DOCUMENT_ROOT"]);
 
 require_once("_spl_autoload.php");
 
 function getDB(): \tech\scolton\fitness\database\DBProvider {
-    $cfg = \tech\scolton\fitness\util\Config::getConfig();
+    $cfg = \tech\scolton\fitness\util\Config::getConfigSection("db");
 
-    $provider = $cfg["DBProvider"];
-
+    $provider = $cfg["provider"];
 
     $c = "\\tech\\scolton\\fitness\\database\\".$provider;
-    $db = new $c;
+    $db = new $c();
     return $db;
 }
 

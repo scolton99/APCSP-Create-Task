@@ -8,19 +8,29 @@
 
 namespace tech\scolton\fitness\util;
 
-require_once("../../../../../_config.php");
+define("DIRNAME", dirname(__FILE__, 8) . "/");
 
 class Config
 {
-    public static function getConfig() {
-        global $cfg;
+    /**
+     * @var array
+     */
+    private static $cfg;
 
-        return $cfg;
+    public static function getConfig() {
+        return self::$cfg;
     }
 
     public static function getConfigSection($section) {
-        global $cfg;
+        return self::$cfg[$section];
+    }
 
-        return $cfg[$section];
+    public static function init(array $cfg) {
+        self::$cfg = $cfg;
     }
 }
+
+$json = file_get_contents(DIRNAME . "assets/config/config.json");
+$cfg = json_decode($json, true);
+Config::init($cfg);
+
