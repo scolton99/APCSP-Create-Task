@@ -8,20 +8,20 @@
 require_once("assets/php/var.php");
 
 if (!userLoggedIn())
-    header("Location: ./register/");
+	header("Location: ./register/");
 
 $user = \tech\scolton\fitness\model\User::get($_SESSION["id"]);
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Fitness Tracker</title>
-        <link rel="stylesheet" href="assets/css/fitness.css" />
-        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
-        <script src="assets/js/fitness.js"></script>
-    </head>
-    <body class="main">
-        <a class="metro-button" id="logout-button" href="javascript:void(0);">Log out</a>
-    </body>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Fitness Tracker</title>
+		<link rel="stylesheet" href="assets/css/fitness.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+		<script src="assets/js/fitness.js"></script>
+	</head>
+	<body class="main">
+		<a class="metro-button" id="logout-button" href="javascript:void(0);">Log out</a>
+	</body>
 </html>

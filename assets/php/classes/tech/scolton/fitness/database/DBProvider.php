@@ -9,6 +9,7 @@
 namespace tech\scolton\fitness\database;
 
 
+use tech\scolton\fitness\model\Goal;
 use tech\scolton\fitness\model\Message;
 use tech\scolton\fitness\model\Team;
 use tech\scolton\fitness\model\User;
@@ -37,6 +38,13 @@ interface DBProvider
     function GetMessage(int $id): Message;
     function GetMessages(int $team, int $offset = 0, int $limit = 50): array;
     function SendMessage(Message $message): int;
+
+    function GetGoalTypes(): array;
+
+    function GetGoal(int $id): Goal;
+    function NewGoal();
+    function UpdateGoal(int $id);
+    function GetGoals(int $user): array;
 
     function Login(string $username, string $password): int;
 }

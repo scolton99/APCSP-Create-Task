@@ -9,8 +9,7 @@
 namespace tech\scolton\fitness\notification;
 
 
-abstract class ActionRunTypes
-{
-    const RUNONCE = "RUNONCE";
-    const INFINITE = "INFINITE";
+abstract class ActionRunTypes {
+	const RUNONCE = "RUNONCE";
+	const INFINITE = "INFINITE";
 }

@@ -11,10 +11,8 @@ namespace tech\scolton\fitness\exception;
 
 use Exception;
 
-class RequiredValueMissingException extends \Exception
-{
-    public function __construct($message = "A required value for class instantiation was left blank.", $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+class RequiredValueMissingException extends \Exception {
+	public function __construct($message = "A required value for class instantiation was left blank.", $code = 0, Exception $previous = null) {
+		parent::__construct($message, $code, $previous);
+	}
 }

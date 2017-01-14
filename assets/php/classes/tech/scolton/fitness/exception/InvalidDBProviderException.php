@@ -11,10 +11,8 @@ namespace tech\scolton\fitness\exception;
 
 use Exception;
 
-class InvalidDBProviderException extends \Exception
-{
-    public function __construct($message = "The DB provider specified in the configuration is invalid.", $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+class InvalidDBProviderException extends \Exception {
+	public function __construct($message = "The DB provider specified in the configuration is invalid.", $code = 0, Exception $previous = null) {
+		parent::__construct($message, $code, $previous);
+	}
 }

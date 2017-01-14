@@ -12,6 +12,7 @@ define("DIRNAME", dirname(__FILE__ , 8) . "/");
 
 use tech\scolton\fitness\exception\MySQLException;
 use tech\scolton\fitness\exception\UserLoginException;
+use tech\scolton\fitness\model\Goal;
 use tech\scolton\fitness\model\Message;
 use tech\scolton\fitness\model\Team;
 use tech\scolton\fitness\model\User;
@@ -280,4 +281,27 @@ class MySQL implements DBProvider
         // TODO: Implement the GetMessagesFunction
         return null;
     }
+
+    public function GetGoal(int $id): Goal {
+		// TODO: Implement GetGoal() method.
+		return null;
+	}
+
+	public function GetGoals(int $user): array {
+		// TODO: Implement GetGoals() method.
+		return null;
+	}
+
+	public function GetGoalTypes(): array {
+		// TODO: Implement GetGoalTypes() method.
+		return null;
+	}
+
+	public function NewGoal() {
+		// TODO: Implement NewGoal() method.
+	}
+
+	public function UpdateGoal(int $id) {
+		// TODO: Implement UpdateGoal() method.
+	}
 }

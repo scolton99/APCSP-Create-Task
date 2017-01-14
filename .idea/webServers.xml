@@ -10,8 +10,16 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
-      <webServer id="b3fefb0b-83b3-4cd4-9139-85963540af33" name="Local" url="http://SMAC-U.scolton.tech">
+      <webServer id="b3fefb0b-83b3-4cd4-9139-85963540af33" name="Home" url="http://SMAC-U.scolton.tech">
         <fileTransfer host="SMAC-U.scolton.tech" port="22" rootFolder="/var/www/html" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="de61ad5d-3e7f-416f-ac02-eee44b5c178c" name="Local" url="http://192.168.56.101">
+        <fileTransfer host="192.168.56.101" port="22" rootFolder="/var/www/html" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
