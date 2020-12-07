@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fd55a766-6f68-41d3-b4f5-d005437031c1" name="Davis Main" url="http://10.212.8.60/ap-1/">
+        <fileTransfer host="10.212.8.60" port="22" rootFolder="/var/www/html/ap-1" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="b3fefb0b-83b3-4cd4-9139-85963540af33" name="Home" url="http://192.168.0.14">
+        <fileTransfer host="192.168.0.14" port="22" rootFolder="/var/www/html" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

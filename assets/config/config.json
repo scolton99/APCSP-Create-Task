@@ -1,0 +1,12 @@
+{
+    "db": {
+        "provider": "MySQL",
+        "username": "scolton",
+        "password": "",
+        "database": "scolton_test",
+        "host": "sql.scolton.tech",
+        "port": 3306
+    },
+
+    "home": "/apcsp"
+}

@@ -1,0 +1,374 @@
+/* All block-commented sections of code are as such because they were abandoned in favor of the "Freelancer" theme. */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.main {
+    background-color: #279fe5;
+    font-family: Quicksand, sans-serif;
+    padding-top: 51px;
+}
+
+/* .metro-button {
+    font-weight: 500;
+    border: 3px solid #fff;
+    border-radius: 0;
+    padding: 7px;
+    text-transform: lowercase;
+    font-family: inherit;
+    font-size: 24px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0);
+} */
+
+/*#logout-button, #login-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}*/
+
+a {
+    text-decoration: none;
+}
+
+section.main {
+    /*position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 100%;*/
+    text-align: center;
+    /*
+    vertical-align: top;
+    */
+}
+
+/*@keyframes logo-fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}*/
+
+/*#register-logo {
+    display: inline-block;
+    height: 50vh;
+    animation: logo-fade 1s;
+}*/
+
+/*div#logo-container {
+    display: inline-block;
+    height: 50vh;
+}*/
+
+/*@keyframes reg-form-expand {
+    0% {
+        padding-left: 0;
+        padding-right: 0;
+        width: 0;
+    }
+
+    50%{
+        padding-left: 0;
+        padding-right: 0;
+        width: 0;
+    }
+
+    50.1% {
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 0;
+    }
+
+    100% {
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 65vw;
+    }
+}*/
+
+/*div#form-container {
+    display: inline-block;
+    !*height: 50vh;*!
+    width: 65vw;
+    max-width: 800px;
+    !*overflow: hidden;*!
+    !*text-align: justify;*!
+    margin: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}*/
+
+/*div#form-container.animate {
+    animation: reg-form-expand 2s cubic-bezier(0, 0, 0, 1);
+}*/
+
+#registration-form {
+    width: 65vw;
+    max-width: 800px;
+    text-align: left;
+    margin: auto;
+}
+
+#registration-form h1 {
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* h1 {
+    text-transform: lowercase;
+    font-weight: 800;
+    color: #fff;
+    font-size: 4.3vw;
+    margin-top: 1em;
+    margin-bottom: 0.4em;
+} */
+
+/* input[type="text"], input[type="password"]{
+    width: calc(100% - 40px);
+    padding: 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 4vmin;
+    font-family: Quicksand, sans-serif;
+    outline: none;
+}
+
+input[type="radio"] {
+    opacity: 0;
+    margin: 0 40px 0 0;
+    width: 2em;
+} */
+
+/*noinspection CssUnusedSymbol*/
+/*.form-part ~ .form-part {
+    display: none;
+}*/
+
+/* input[type="radio"] + label {
+    display: inline-block;
+    margin-left: -2em;
+    line-height: 1.5em;
+    font-size: 2em;
+    color: #fff;
+}
+
+input[type="radio"] + label > span {
+    display: inline-block;
+    height: 0.875em;
+    width: 0.875em;
+    margin: 0.25em 0.5em 0.25em 0.25em;
+    border: 0.15em solid #fff;
+    border-radius: 1000px;
+    vertical-align: bottom;
+}
+
+input[type="radio"]:checked + label > span {
+    background: radial-gradient(circle, #fff 0, #fff 45%, rgba(0, 0, 0, 0) 45%);
+} */
+
+/*#form-2 h1, #form-3 h1 {
+    margin-top: 0.4em;
+}*/
+
+/*.input-group {
+    display: inline-block;
+}*/
+
+/*#form-2 input[type="text"] {
+    text-align: right;
+}*/
+
+/*.input-group input[type="text"] {
+    width: 1.5em;
+    padding-right: 5px;
+    margin-right: 0;
+    display: inline-block;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group span {
+    font-size: 4vmin;
+    font-weight: 500;
+    padding: 20px 20px 20px 5px;
+    background-color: #fff;
+    margin-left: -5px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #A9A9A9;
+}*/
+
+/*#form-2 div#feetcont > span {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}*/
+
+/*div#inchescont {*/
+    /*margin-left: -5px;*/
+    /*margin-right: 40px;*/
+/*}*/
+
+/*div#inchescont > input[type="text"] {*/
+    /*border-top-left-radius: 0;*/
+    /*border-bottom-left-radius: 0;*/
+    /*padding-left: 3px;*/
+/*}*/
+
+/*noinspection CssUnusedSymbol*/
+#metricbox {
+    display: none;
+}
+
+/*#cmcont {
+    margin-right: 40px;
+}*/
+
+#form-3 > select {
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    font-size: 2em;
+    font-family: Quicksand, sans-serif;
+}
+
+/*#birthday-next {
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px solid #fff;
+    border-radius: 50px;
+    font-size: 2em;
+    font-weight: 800;
+    color: #fff;
+    padding: 20px 30px 20px 30px;
+}*/
+
+#form-4 > h1 {
+    margin-top: -0.1em;
+}
+
+#form-4 > input {
+    width: calc(65vw - 40px);
+    max-width: 760px;
+}
+
+#registration-form #action_header {
+    font-size: 4.3vw;
+}
+
+#registration-form #action_error {
+    color: #fff;
+}
+
+#login-form {
+    width: 65vw;
+    max-width: 800px;
+    margin: auto;
+}
+
+body.main-2 {
+    background-color: #279fe5;
+    font-family: Quicksand, sans-serif;
+}
+
+h1#goals-header {
+    margin-top: 0.25em;
+    margin-left: 0.25em;
+    text-align: center;
+}
+
+div#goals-section {
+    width: 100%;
+    margin: auto;
+}
+
+div#goals-section-home {
+    width: 100%;
+    margin: auto;
+    max-width: 1000px;
+}
+
+div#goals-section-home h1 {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+div#goals-section h2 {
+    text-align: center;
+}
+
+section {
+    padding: 0 !important;
+}
+
+h3.goal-progress {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    text-transform: lowercase;
+}
+
+div#goals-section > div.row > div {
+
+}
+
+div#goals h2 {
+
+}
+
+/* a.brand {
+    font-weight: 700;
+    color: #fff;
+    font-size: 3em;
+}
+
+nav#top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.nav ul {
+    list-style-type: none;
+} */
+
+input.goal-input[type="text"] {
+    text-align: right;
+}
+
+div.goal-progress-container {
+    text-align: center;
+}
+
+a.add-goals {
+    color: white;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 3px;
+    border: 2px solid white;
+}
+
+a.add-goals:hover {
+    text-decoration: none;
+    color: white;
+}
+
+section#form hr {
+    border-color: #444;
+}
+
+h1#registration-header {
+    text-align: center;
+    font-weight: bold;
+}
+
+div#add-goal {
+    max-width: 600px;
+    margin: auto;
+}
+
+h1#your-team {
+    text-align: center;
+}
